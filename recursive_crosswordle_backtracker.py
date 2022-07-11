@@ -220,5 +220,5 @@ if __name__ == "__main__":
             print("saving hash table to local file")
             save_hashtable(table, "crosswordle_hashtable.p")
 
-    print("solving the example crosswordle at https://crosswordle.vercel.app/?puzzle=v2-0,9,99,20,20,242-x,x,x,x,x,2x")
+    print("solving the example crosswordle at https://crosswordle.vercel.app/?puzzle=v2-0,9,99,20,74,242-x,x,x,x,x,2x")
     sols = solve_function(list(filter(lambda word: word[2] == "x", EXTENDED_WORDLE)), [242,74,20,99,9,0], table)
