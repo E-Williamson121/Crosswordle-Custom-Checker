@@ -33,7 +33,6 @@ Use the lookup table to find words that may fill the colouring for the next row 
      i) A letter which has appeared on a grey tile in a previous row cannot reappear on a grey tile in this row.
      ii) A letter which appears on a yellow *or* grey tile cannot be above a location where it was placed in a previous row.
      iii) The yellows and greens in this row must be a sublist (i.e.: sequence of items chosen from) the yellows and greens in the previous row.
-     (note that, for efficiency, if we find 2 words work, we may discard the colouring immediately)
 """
 
 # imports for the program
