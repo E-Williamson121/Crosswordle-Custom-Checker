@@ -250,7 +250,7 @@ if __name__ == "__main__":
         print("generating hash table")
         table = get_table(WORDLES, EXTENDED_WORDLE)
         print("save hashtable to local file to skip generation next time (y/n)?")
-        print("(only do this if you have disk space, the file will be BIG!)")
+        print("(only do this if you have disk space, the file will be roughly 0.8GB!)")
         input()
         if k == "y":
             print("saving hash table to local file")
