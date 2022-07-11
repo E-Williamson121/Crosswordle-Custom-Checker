@@ -1,5 +1,42 @@
+"""
+RECURSIVE CROSSWORDLE SOLVER:
 
-# imports for our program
+This program is a solver for puzzles at crosswordle.vercel.app.
+
+Designed to be a pythonic extension to the official crosswordle (V1) checker - the ability to force tile values will be added later as it is a V2 feature,
+it contains all of the same behaviours, but, as a separate python project, allows for finer-controlled customization.
+
+example customizations include:
+   using the full word list instead of the official crosswordle checker's list of common words.
+   obtaining an array containing all solutions rather than crosswordle's single solutions selected at random
+   using the list of colourings to specify a puzzle of a length which the crosswordle checker will not allow (e.g.: 2 rows or >6 rows)
+
+Execution for the solver occurs in two main steps, approximately as follows:
+
+1. Generate colour hash table (or load it from an external file)
+
+The hash table is in the form:
+table[(solution, colouring)] = [guesses that can give that colouring]
+
+Using this table serves as a way of skipping having to loop over the wordlist when checking colour possibilities.
+
+2. Recursive backtracker
+
+The solver runs as a recursive backtracking algorithm.
+
+The inputs are the set of colours for the entire puzzle and the possible initial conditions (inputs for the bottom row of the puzzle).
+
+From these, the backtracker repeatedly extends the puzzle by one row, obtaining all options for such an extension as initial conditions for the next row.
+
+The process of extension goes as follows:
+Use the lookup table to find words that may fill the colouring for the next row up. These are then filtered via the rules:
+     i) A letter which has appeared on a grey tile in a previous row cannot reappear on a grey tile in this row.
+     ii) A letter which appears on a yellow *or* grey tile cannot be above a location where it was placed in a previous row.
+     iii) The yellows and greens in this row must be a sublist (i.e.: sequence of items chosen from) the yellows and greens in the previous row.
+     (note that, for efficiency, if we find 2 words work, we may discard the colouring immediately)
+"""
+
+# imports for the program
 import random, pickle, os
 
 # NYT wordle answer list ("common words")
