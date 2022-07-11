@@ -62,6 +62,21 @@ def wordle_colour(guess, solution):
                 col[pos] = 1
 
     return col
+     
+   
+# utility function for saving a hashtable to a local file (done via pickling)
+def save_hashtable(table, filename):
+    with open(filename, 'wb') as fp:
+        pickle.dump(table, fp, protocol=pickle.HIGHEST_PROTOCOL)
+
+# utility function for loading hashtables from a local file
+def load_hashtable(filename):
+    with open(filename, "rb") as fp:
+        return pickle.load(fp)
+
+
+# ================================ RECURSIVE BACKTRACKER ================================== #
+# this part of the code details the main implementation of the recursive backtracker program
 
 # input for the recursive backtracker solve:
 def solve_function(options, nums, table):
@@ -79,6 +94,7 @@ def recursive_backtracker(selected, options, nums, table):
     for i, word in enumerate(options):
         if len(selected) == 0:
             if int(i*100/len(options)) > percent:
+                # visual information to relay how the solve is going to the user. you may remove this if you wish.
                 percent = int(i*100/len(options))
                 print(f"{percent}% complete")
         new_options = extend_puzzle(selected+[word], nums, table)
@@ -87,16 +103,6 @@ def recursive_backtracker(selected, options, nums, table):
     if solutions != []:
         if len(selected) == 0: print(f"{len(solutions)} solutions found.")
         return solutions
-
-# utility function for saving a hashtable to a local file
-def save_hashtable(table, filename):
-    with open(filename, 'wb') as fp:
-        pickle.dump(table, fp, protocol=pickle.HIGHEST_PROTOCOL)
-
-# utility function for loading hashtables from a local file
-def load_hashtable(filename):
-    with open(filename, "rb") as fp:
-        return pickle.load(fp)
 
 # ==================================== PUZZLE EXTENSION ==================================== #
 # this part of the code is a collection of functions used to extend puzzles by one row
